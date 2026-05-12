@@ -5,44 +5,6 @@ import { defineConfig, loadEnv } from "vite";
 // Note: GitHub Pages does not let you set Cache-Control; for long-lived MP4 caching use
 // Netlify (public/_headers), Vercel (vercel.json), or a CDN in front of the origin.
 
-const githubRawVideoPlugin = () => {
-  return {
-    name: "github-raw-video",
-    apply: "build", // Only run the plugin during the build process
-    enforce: "post", // Run this plugin after Vite's main transformations
-    generateBundle(options, bundle) {
-      // Loop through every file in the build output
-      for (const fileName in bundle) {
-        const chunk = bundle[fileName];
-
-        // Only process HTML, JS, and CSS files
-        if (
-          chunk.type === "asset" &&
-          (fileName.endsWith(".html") || fileName.endsWith(".js") || fileName.endsWith(".css"))
-        ) {
-          let source = chunk.source;
-
-          if (typeof source === "string") {
-            // REPLACE THIS WITH YOUR ACTUAL REPO DETAILS
-            const rawGitHubBase = "https://raw.githubusercontent.com/juneaucross/super-deri/main/";
-
-            // 1. Find your local video paths (adjust the 'videos/' part as needed)
-            // 2. Replace them with the full raw GitHub link
-            //    This ensures that links like 'videos/reel-1.webm' become a complete, working URL.
-            const modifiedSource = source.replace(
-              /(?:\.\/)?videos\/([^"'\s]+\.webm)/g,
-              `${rawGitHubBase}videos/$1`,
-            );
-
-            chunk.source = modifiedSource;
-          }
-        }
-      }
-    },
-  };
-};
-
-
 const VIDEO_CACHE_CONTROL = "public, max-age=604800, stale-while-revalidate=86400";
 
 function videoCacheHeaders() {
@@ -86,7 +48,6 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       videoCacheHeaders(),
-      githubRawVideoPlugin(),
       {
         name: "html-open-graph",
         transformIndexHtml(html) {
