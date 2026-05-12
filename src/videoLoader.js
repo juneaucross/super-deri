@@ -82,8 +82,15 @@ function rebindFacadeInteractions(fresh, state) {
   observeEl(sharedObserver, state);
 }
 
-/** @param {HTMLVideoElement} video */
-function probeWebmLoad(video) {
+/**
+ * @param {HTMLVideoElement} video
+ * @param {{ userGesturePlay?: boolean }} [opts]
+ *   When `userGesturePlay` is true, `play()` runs in the same synchronous turn as `load()`
+ *   (still inside the click call stack). iOS Safari drops deferred `play()` after awaits,
+ *   which can leave `currentTime` advancing while frames stall until the user seeks.
+ */
+function probeWebmLoad(video, opts = {}) {
+  const { userGesturePlay = false } = opts;
   return new Promise((resolve) => {
     let settled = false;
     const finish = (ok) => {
@@ -102,6 +109,7 @@ function probeWebmLoad(video) {
     video.addEventListener("error", onErr, { once: true });
     const tid = window.setTimeout(() => finish(false), VIDEO_PROBE_MS);
     video.load();
+    if (userGesturePlay) void video.play().catch(() => {});
   });
 }
 
@@ -304,6 +312,7 @@ export async function initPlyr(facade) {
     video.className = "js-plyr";
     video.playsInline = true;
     video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
     /** До активации кликом не тянем метаданные; probe вызывает load() только после клика. */
     video.preload = "none";
 
@@ -314,7 +323,7 @@ export async function initPlyr(facade) {
 
     facade.appendChild(video);
 
-    const ok = await probeWebmLoad(video);
+    const ok = await probeWebmLoad(video, { userGesturePlay: true });
     if (!ok || !facade.isConnected) {
       if (facade.isConnected) restoreFacadeAfterLoadFailure(facade, state);
       return;
@@ -333,6 +342,19 @@ export async function initPlyr(facade) {
     state.plyr = player;
     facade._plyr = player;
     setVideoState(facade, "playing");
+
+    /** WebKit (incl. iOS): occasional VP9 stall until seek; self-seek is a no-op that nudges decoding. */
+    const media = player.media;
+    const nudgeDecode = () => {
+      try {
+        if (!media || media.paused) return;
+        const t = media.currentTime;
+        if (Number.isFinite(t)) media.currentTime = t;
+      } catch {
+        /* noop */
+      }
+    };
+    media.addEventListener("playing", () => requestAnimationFrame(nudgeDecode), { once: true });
 
     if (carousel) {
       carousel.dispatchEvent(
