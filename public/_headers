@@ -1,6 +1,9 @@
 # Netlify: copied to dist/ by Vite. Strong cache for large media (advice #6 — HTTP caching).
-# If you replace a file without renaming, shorten max-age or version the URL (e.g. ?v=2).
-# GitHub Pages does not read this file; use Netlify/Vercel/Cloudflare for these headers.
+# GitHub Pages не применяет этот файл — только Netlify/Vercel и т.п.
+# CSP: media-src / img-src с https: — чтобы можно было отдавать видео и постеры с CDN.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' https: blob:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';
 
 /videos/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400

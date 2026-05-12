@@ -15,7 +15,11 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+     "generate-posters": "bash scripts/generate-posters.sh",
+    "convert-posters-avif": "node scripts/webp-to-avif.mjs",
+    "generate-all-posters": "npm run generate-posters && npm run convert-posters-avif",
+    "prebuild": "npm run generate-all-posters"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

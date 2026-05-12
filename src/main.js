@@ -1,5 +1,5 @@
-import Plyr from "plyr";
 import "plyr/dist/plyr.css";
+import { initVideoLoader } from "./videoLoader.js";
 
 const NAV_SCROLL_GAP = 8;
 
@@ -72,15 +72,11 @@ const plyrOptions = {
   clickToPlay: true,
   hideControls: true,
   fullscreen: { enabled: false },
+  /** До клика метаданные не подгружаем; превью — отдельный video с preload metadata. */
+  preload: "none",
 };
 
 const plyrGloballyTracked = [];
-
-function pauseAllPlyrsExcept(except) {
-  for (const p of plyrGloballyTracked) {
-    if (p !== except) p.pause();
-  }
-}
 
 // Hamburger toggle
 (() => {
@@ -101,111 +97,6 @@ function pauseAllPlyrsExcept(except) {
   );
 })();
 
-// Lazy-activate per carousel: once it first enters viewport, attach sources for all slides.
-// Important for iOS: avoid re-attaching/removing src while swiping, it can cause play/pause thrashing.
-const CAROUSEL_LAZY_MARGIN = "200px";
-
-const POSTER_JPEG_QUALITY = 0.85;
-const POSTER_MAX_WIDTH = 1280;
-
-function parsePosterAtSec(root) {
-  const raw = root.dataset.posterAt;
-  if (raw == null || raw === "") return null;
-  const n = parseFloat(raw);
-  return Number.isFinite(n) && n > 0 ? n : null;
-}
-
-/**
- * Seek underlying HTMLMediaElement, rasterize frame, then set Plyr poster.
- * Important: Plyr ignores native `video.poster` for idle preview—it uses `.plyr__poster`
- * populated via `player.poster` (see plyr readme / setPoster → backgroundImage).
- */
-function capturePlyrPosterFrame(player, timeSec, { capturingPoster, onDone }) {
-  const video = player.media;
-  if (!(video instanceof HTMLMediaElement)) return;
-
-  capturingPoster.add(video);
-
-  let finished = false;
-  const finish = () => {
-    if (finished) return;
-    finished = true;
-    capturingPoster.delete(video);
-    video.pause();
-    video.currentTime = 0;
-    onDone?.();
-  };
-
-  function applyPosterDataUrl(url) {
-    if (!url) {
-      finish();
-      return;
-    }
-    const img = new Image();
-    img.onload = () => {
-      player.poster = url;
-      finish();
-    };
-    img.onerror = () => finish();
-    img.src = url;
-  }
-
-  const seekAndGrab = () => {
-    const dur = video.duration;
-    if (!Number.isFinite(dur) || dur <= 0) {
-      finish();
-      return;
-    }
-    const t = Math.min(timeSec, Math.max(0, dur - 0.05));
-    const onSeeked = () => {
-      try {
-        const w = video.videoWidth;
-        const h = video.videoHeight;
-        if (w > 0 && h > 0) {
-          let tw = w;
-          let th = h;
-          if (w > POSTER_MAX_WIDTH) {
-            tw = POSTER_MAX_WIDTH;
-            th = Math.round((h * POSTER_MAX_WIDTH) / w);
-          }
-          const canvas = document.createElement("canvas");
-          canvas.width = tw;
-          canvas.height = th;
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            ctx.drawImage(video, 0, 0, tw, th);
-            applyPosterDataUrl(canvas.toDataURL("image/jpeg", POSTER_JPEG_QUALITY));
-            return;
-          }
-        }
-      } catch {
-        /* CORS or canvas taint */
-      }
-      finish();
-    };
-    if (Math.abs(video.currentTime - t) < 1e-3) {
-      onSeeked();
-    } else {
-      video.addEventListener("seeked", onSeeked, { once: true });
-      video.currentTime = t;
-    }
-  };
-
-  video.addEventListener(
-    "error",
-    () => {
-      finish();
-    },
-    { once: true },
-  );
-
-  if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
-    seekAndGrab();
-  } else {
-    video.addEventListener("loadedmetadata", seekAndGrab, { once: true });
-  }
-}
-
 // Generic carousel — applied to every [data-carousel]
 function initCarousel(root) {
   const viewport = root.querySelector(".carousel__viewport");
@@ -216,10 +107,8 @@ function initCarousel(root) {
   const dotsWrap = root.querySelector(".carousel__dots");
   const slidePlayer = new Map();
   let index = Math.floor(slides.length / 2);
-  let inView = false;
-  let activated = false;
-  const posterAtSec = parsePosterAtSec(root);
-  const capturingPoster = new WeakSet();
+  /** Индекс слайда при последнем slideChanged; null до первого события. */
+  let lastNotifiedSlideIndex = null;
 
   slides.forEach((_, i) => {
     const b = document.createElement("button");
@@ -230,65 +119,14 @@ function initCarousel(root) {
     dotsWrap.appendChild(b);
   });
 
-  function resolvedSrc(url) {
-    try {
-      return new URL(url, document.baseURI).href;
-    } catch {
-      return url;
-    }
-  }
-
-  function syncVideoLoading() {
-    slides.forEach((slide) => {
-      const video = slide.querySelector("video.js-plyr");
-      if (!video) return;
-      const player = slidePlayer.get(slide);
-      const url = video.dataset.src;
-      if (!url) return;
-
-      const shouldHaveSrc = activated;
-      if (shouldHaveSrc) {
-        const want = resolvedSrc(url);
-        if (video.src !== want) {
-          video.src = url;
-          video.load();
-          if (posterAtSec != null && player) {
-            capturePlyrPosterFrame(player, posterAtSec, {
-              capturingPoster,
-              onDone: () => {
-                if (inView) update();
-              },
-            });
-          }
-        }
-        video.preload = "metadata";
-      } else {
-        // Before first viewport entry, keep deferred.
-        video.preload = "none";
-      }
-    });
-  }
-
-  function applyInView(next) {
-    if (next === inView) return;
-    inView = next;
-    if (!inView) {
-      slides.forEach((sl) => {
-        const p = slidePlayer.get(sl);
-        if (p) p.pause();
-      });
-    }
-    update();
-  }
-
   function step() {
     if (slides.length < 2) return 0;
     const a = slides[0].getBoundingClientRect();
     const b = slides[1].getBoundingClientRect();
     return b.left + b.width / 2 - (a.left + a.width / 2);
   }
+
   function update() {
-    syncVideoLoading();
     const s = step();
     const offset = (slides.length / 2 - 0.5 - index) * s;
     track.style.transform = `translateX(${offset}px)`;
@@ -301,34 +139,51 @@ function initCarousel(root) {
     slides.forEach((sl, i) => {
       const player = slidePlayer.get(sl);
       if (!player) return;
-      const video = sl.querySelector("video.js-plyr");
       if (i === index) {
-        if (video && capturingPoster.has(video)) return;
         player.play().catch(() => {});
       } else {
         player.pause();
       }
     });
+
+    if (lastNotifiedSlideIndex !== index) {
+      const leavingSlide =
+        lastNotifiedSlideIndex != null &&
+        lastNotifiedSlideIndex >= 0 &&
+        lastNotifiedSlideIndex < slides.length
+          ? slides[lastNotifiedSlideIndex]
+          : null;
+      lastNotifiedSlideIndex = index;
+      root.dispatchEvent(
+        new CustomEvent("slideChanged", {
+          bubbles: true,
+          detail: {
+            carousel: root,
+            activeSlide: slides[index],
+            leavingSlide,
+          },
+        }),
+      );
+    }
   }
+
   function go(i) {
     index = Math.max(0, Math.min(slides.length - 1, i));
     update();
   }
 
-  slides.forEach((slide, slideIndex) => {
-    const video = slide.querySelector("video.js-plyr");
-    if (!video) return;
-    const player = new Plyr(video, plyrOptions);
-    slidePlayer.set(slide, player);
-    plyrGloballyTracked.push(player);
-    player.on("play", () => {
-      pauseAllPlyrsExcept(player);
-      go(slideIndex);
-    });
+  root.__carouselGo = go;
+
+  root.addEventListener("deri:plyr", (e) => {
+    const { type, slide, player } = e.detail || {};
+    if (!root.contains(slide)) return;
+    if (type === "mount") slidePlayer.set(slide, player);
+    else if (type === "unmount") slidePlayer.delete(slide);
   });
 
   slides.forEach((slide, i) => {
     slide.addEventListener("click", (e) => {
+      if (e.target.closest(".video-facade")) return;
       if (e.target.closest(".plyr__controls")) return;
       if (e.target.closest(".plyr")) {
         if (i !== index) go(i);
@@ -357,27 +212,13 @@ function initCarousel(root) {
     startX = null;
   });
 
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.target !== root) continue;
-        if (!activated && e.isIntersecting) {
-          activated = true;
-          applyInView(true);
-          io.unobserve(root);
-          io.disconnect();
-        }
-      }
-    },
-    {
-      root: null,
-      rootMargin: CAROUSEL_LAZY_MARGIN,
-      threshold: 0,
-    },
-  );
-  io.observe(root);
-
-  window.addEventListener("resize", update);
+  window.addEventListener("resize", () => update());
   update();
 }
+
 document.querySelectorAll("[data-carousel]").forEach(initCarousel);
+
+initVideoLoader({
+  plyrOptions,
+  plyrTracked: plyrGloballyTracked,
+});

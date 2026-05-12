@@ -3,6 +3,10 @@
   --fg: #000;
   --muted: #5a5a5a;
   --accent: #0051ff;
+  /* Plyr: play / hover / scrub fill + seek rail (see node_modules/plyr/dist/plyr.css) */
+  --plyr-color-main: var(--accent);
+  --plyr-video-range-track-background: color-mix(in srgb, var(--accent) 38%, transparent);
+  --plyr-video-progress-buffered-background: color-mix(in srgb, var(--accent) 55%, transparent);
   --card: #5a5a5a;
   --nav-h: 64px;
   --pad-x: clamp(20px, 4vw, 64px);
@@ -455,6 +459,66 @@ body.has-mobile-menu {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.carousel__slide .carousel__plyr-root {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.video-facade {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  cursor: pointer;
+}
+
+/* data-video-state задаётся в videoLoader.js: loading | playing | error */
+.video-facade[data-video-state="loading"] {
+  cursor: wait;
+}
+
+.video-facade[data-video-state="error"] .video-facade__play {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.video-facade picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.video-facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Plyr’s overlaid play is display:none until .plyr--video; on the facade we use the same classes + markup as play-large. */
+.video-facade > .video-facade__play.plyr__control--overlaid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-facade__error {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.78);
+  border-radius: 6px;
+  z-index: 4;
+  text-align: center;
 }
 
 .carousel__slide .plyr {

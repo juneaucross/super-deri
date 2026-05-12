@@ -37,6 +37,8 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <!-- Первый постер первой карусели (над сгибом) — приоритет для LCP; остальные img с loading="lazy". -->
+    <link rel="preload" as="image" href="./videos/podcast-1_poster.avif" type="image/avif" />
     <link rel="stylesheet" href="./src/style.css" />
   </head>
   <body class="page">
@@ -101,7 +103,6 @@
       <section
         class="carousel carousel--horizontal"
         data-carousel
-        data-poster-at="300"
         aria-labelledby="podcasts-heading"
       >
         <div class="carousel__head" id="podcasts">
@@ -136,58 +137,184 @@
         <div class="carousel__viewport">
           <div class="carousel__track">
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/podcast-1.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/podcast-1.webm"
+                   data-poster-avif="./videos/podcast-1_poster.avif"
+                   data-poster-webp="./videos/podcast-1_poster.webp">
+                <picture>
+                  <source srcset="./videos/podcast-1_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/podcast-1_poster.webp"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                    fetchpriority="high"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/podcast-2.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/podcast-2.webm"
+                   data-poster-avif="./videos/podcast-2_poster.avif"
+                   data-poster-webp="./videos/podcast-2_poster.webp">
+                <picture>
+                  <source srcset="./videos/podcast-2_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/podcast-2_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <!-- <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/podcast-3.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/podcast-3.webm"
+                   data-poster-avif="./videos/podcast-3_poster.avif"
+                   data-poster-webp="./videos/podcast-3_poster.webp">
+                <picture>
+                  <source srcset="./videos/podcast-3_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/podcast-3_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/podcast-4.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/podcast-4.webm"
+                   data-poster-avif="./videos/podcast-4_poster.avif"
+                   data-poster-webp="./videos/podcast-4_poster.webp">
+                <picture>
+                  <source srcset="./videos/podcast-4_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/podcast-4_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div> -->
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/podcast-5.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/podcast-5.webm"
+                   data-poster-avif="./videos/podcast-5_poster.avif"
+                   data-poster-webp="./videos/podcast-5_poster.webp">
+                <picture>
+                  <source srcset="./videos/podcast-5_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/podcast-5_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <!-- <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/podcast-6.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/podcast-6.webm"
+                   data-poster-avif="./videos/podcast-6_poster.avif"
+                   data-poster-webp="./videos/podcast-6_poster.webp">
+                <picture>
+                  <source srcset="./videos/podcast-6_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/podcast-6_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div> -->
           </div>
         </div>
@@ -231,274 +358,904 @@
         <div class="carousel__viewport">
           <div class="carousel__track">
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-1.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-1.webm"
+                   data-poster-avif="./videos/reel-1_poster.avif"
+                   data-poster-webp="./videos/reel-1_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-1_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-1_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-2.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-2.webm"
+                   data-poster-avif="./videos/reel-2_poster.avif"
+                   data-poster-webp="./videos/reel-2_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-2_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-2_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-3.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-3.webm"
+                   data-poster-avif="./videos/reel-3_poster.avif"
+                   data-poster-webp="./videos/reel-3_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-3_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-3_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-4.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-4.webm"
+                   data-poster-avif="./videos/reel-4_poster.avif"
+                   data-poster-webp="./videos/reel-4_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-4_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-4_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-5.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-5.webm"
+                   data-poster-avif="./videos/reel-5_poster.avif"
+                   data-poster-webp="./videos/reel-5_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-5_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-5_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-6.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-6.webm"
+                   data-poster-avif="./videos/reel-6_poster.avif"
+                   data-poster-webp="./videos/reel-6_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-6_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-6_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-7.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-7.webm"
+                   data-poster-avif="./videos/reel-7_poster.avif"
+                   data-poster-webp="./videos/reel-7_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-7_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-7_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-8.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-8.webm"
+                   data-poster-avif="./videos/reel-8_poster.avif"
+                   data-poster-webp="./videos/reel-8_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-8_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-8_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-9.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-9.webm"
+                   data-poster-avif="./videos/reel-9_poster.avif"
+                   data-poster-webp="./videos/reel-9_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-9_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-9_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-10.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-10.webm"
+                   data-poster-avif="./videos/reel-10_poster.avif"
+                   data-poster-webp="./videos/reel-10_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-10_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-10_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-11.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-11.webm"
+                   data-poster-avif="./videos/reel-11_poster.avif"
+                   data-poster-webp="./videos/reel-11_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-11_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-11_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-12.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-12.webm"
+                   data-poster-avif="./videos/reel-12_poster.avif"
+                   data-poster-webp="./videos/reel-12_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-12_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-12_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-13.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-13.webm"
+                   data-poster-avif="./videos/reel-13_poster.avif"
+                   data-poster-webp="./videos/reel-13_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-13_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-13_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-14.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-14.webm"
+                   data-poster-avif="./videos/reel-14_poster.avif"
+                   data-poster-webp="./videos/reel-14_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-14_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-14_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-15.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-15.webm"
+                   data-poster-avif="./videos/reel-15_poster.avif"
+                   data-poster-webp="./videos/reel-15_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-15_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-15_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-16.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-16.webm"
+                   data-poster-avif="./videos/reel-16_poster.avif"
+                   data-poster-webp="./videos/reel-16_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-16_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-16_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-17.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-17.webm"
+                   data-poster-avif="./videos/reel-17_poster.avif"
+                   data-poster-webp="./videos/reel-17_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-17_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-17_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-18.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-18.webm"
+                   data-poster-avif="./videos/reel-18_poster.avif"
+                   data-poster-webp="./videos/reel-18_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-18_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-18_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-19.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-19.webm"
+                   data-poster-avif="./videos/reel-19_poster.avif"
+                   data-poster-webp="./videos/reel-19_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-19_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-19_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-20.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-20.webm"
+                   data-poster-avif="./videos/reel-20_poster.avif"
+                   data-poster-webp="./videos/reel-20_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-20_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-20_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-21.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-21.webm"
+                   data-poster-avif="./videos/reel-21_poster.avif"
+                   data-poster-webp="./videos/reel-21_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-21_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-21_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-22.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-22.webm"
+                   data-poster-avif="./videos/reel-22_poster.avif"
+                   data-poster-webp="./videos/reel-22_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-22_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-22_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-23.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-23.webm"
+                   data-poster-avif="./videos/reel-23_poster.avif"
+                   data-poster-webp="./videos/reel-23_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-23_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-23_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-24.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-24.webm"
+                   data-poster-avif="./videos/reel-24_poster.avif"
+                   data-poster-webp="./videos/reel-24_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-24_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-24_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-25.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-25.webm"
+                   data-poster-avif="./videos/reel-25_poster.avif"
+                   data-poster-webp="./videos/reel-25_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-25_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-25_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-26.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-26.webm"
+                   data-poster-avif="./videos/reel-26_poster.avif"
+                   data-poster-webp="./videos/reel-26_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-26_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-26_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-27.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-27.webm"
+                   data-poster-avif="./videos/reel-27_poster.avif"
+                   data-poster-webp="./videos/reel-27_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-27_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-27_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-28.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-28.webm"
+                   data-poster-avif="./videos/reel-28_poster.avif"
+                   data-poster-webp="./videos/reel-28_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-28_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-28_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-29.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-29.webm"
+                   data-poster-avif="./videos/reel-29_poster.avif"
+                   data-poster-webp="./videos/reel-29_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-29_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-29_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/reel-30.webm"
-                playsinline
-                preload="none"
-                loop
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/reel-30.webm"
+                   data-poster-avif="./videos/reel-30_poster.avif"
+                   data-poster-webp="./videos/reel-30_poster.webp">
+                <picture>
+                  <source srcset="./videos/reel-30_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/reel-30_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -543,31 +1300,94 @@
         <div class="carousel__viewport">
           <div class="carousel__track">
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/hor2.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/hor2.webm"
+                   data-poster-avif="./videos/hor2_poster.avif"
+                   data-poster-webp="./videos/hor2_poster.webp">
+                <picture>
+                  <source srcset="./videos/hor2_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/hor2_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/hor.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/hor.webm"
+                   data-poster-avif="./videos/hor_poster.avif"
+                   data-poster-webp="./videos/hor_poster.webp">
+                <picture>
+                  <source srcset="./videos/hor_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/hor_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/hor2.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/hor2.webm"
+                   data-poster-avif="./videos/hor2_poster.avif"
+                   data-poster-webp="./videos/hor2_poster.webp">
+                <picture>
+                  <source srcset="./videos/hor2_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/hor2_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -612,31 +1432,94 @@
         <div class="carousel__viewport">
           <div class="carousel__track">
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/hor.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/hor.webm"
+                   data-poster-avif="./videos/hor_poster.avif"
+                   data-poster-webp="./videos/hor_poster.webp">
+                <picture>
+                  <source srcset="./videos/hor_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/hor_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/hor2.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/hor2.webm"
+                   data-poster-avif="./videos/hor2_poster.avif"
+                   data-poster-webp="./videos/hor2_poster.webp">
+                <picture>
+                  <source srcset="./videos/hor2_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/hor2_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/hor.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/hor.webm"
+                   data-poster-avif="./videos/hor_poster.avif"
+                   data-poster-webp="./videos/hor_poster.webp">
+                <picture>
+                  <source srcset="./videos/hor_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/hor_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -680,85 +1563,274 @@
         <div class="carousel__viewport">
           <div class="carousel__track">
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-1.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-1.webm"
+                   data-poster-avif="./videos/ai-1_poster.avif"
+                   data-poster-webp="./videos/ai-1_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-1_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-1_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-2.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-2.webm"
+                   data-poster-avif="./videos/ai-2_poster.avif"
+                   data-poster-webp="./videos/ai-2_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-2_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-2_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-3.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-3.webm"
+                   data-poster-avif="./videos/ai-3_poster.avif"
+                   data-poster-webp="./videos/ai-3_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-3_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-3_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-4.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-4.webm"
+                   data-poster-avif="./videos/ai-4_poster.avif"
+                   data-poster-webp="./videos/ai-4_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-4_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-4_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-5.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-5.webm"
+                   data-poster-avif="./videos/ai-5_poster.avif"
+                   data-poster-webp="./videos/ai-5_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-5_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-5_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-6.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-6.webm"
+                   data-poster-avif="./videos/ai-6_poster.avif"
+                   data-poster-webp="./videos/ai-6_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-6_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-6_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-7.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-7.webm"
+                   data-poster-avif="./videos/ai-7_poster.avif"
+                   data-poster-webp="./videos/ai-7_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-7_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-7_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-8.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-8.webm"
+                   data-poster-avif="./videos/ai-8_poster.avif"
+                   data-poster-webp="./videos/ai-8_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-8_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-8_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="carousel__slide">
-              <video
-                class="js-plyr"
-                data-src="./videos/ai-9.webm"
-                loop
-                playsinline
-                preload="none"
-              ></video>
+              <div class="video-facade"
+                   data-video-src="./videos/ai-9.webm"
+                   data-poster-avif="./videos/ai-9_poster.avif"
+                   data-poster-webp="./videos/ai-9_poster.webp">
+                <picture>
+                  <source srcset="./videos/ai-9_poster.avif" type="image/avif" />
+                  <img
+                    src="./videos/ai-9_poster.webp"
+                    loading="lazy"
+                    alt="Видео"
+                    width="640"
+                    height="360"
+                    decoding="async"
+                  />
+                </picture>
+                <button
+                  class="plyr__control plyr__control--overlaid video-facade__play"
+                  type="button"
+                  aria-label="Воспроизвести видео"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M15.562 8.1 3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
