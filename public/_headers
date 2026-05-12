@@ -1,0 +1,9 @@
+# Netlify: copied to dist/ by Vite. Strong cache for large media (advice #6 — HTTP caching).
+# If you replace a file without renaming, shorten max-age or version the URL (e.g. ?v=2).
+# GitHub Pages does not read this file; use Netlify/Vercel/Cloudflare for these headers.
+
+/videos/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/super-deri/videos/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400

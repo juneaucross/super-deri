@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Дэрья Суджу — режиссёр монтажа</title>
+    <meta
+      name="description"
+      content="Режиссёр монтажа и видеоредактор: подкасты, реклама, клипы и короткие форматы — от идеи до финального ролика."
+    />
+    <meta property="og:title" content="Дэрья Суджу — режиссёр монтажа" />
+    <meta
+      property="og:description"
+      content="Режиссёр монтажа и видеоредактор: подкасты, реклама, клипы и короткие форматы — от идеи до финального ролика."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Дэрья Суджу" />
+    <meta property="og:url" content="https://tbpxjournal.online/superderi/" />
+    <meta property="og:image" content="https://tbpxjournal.online/superderi/og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Дэрья Суджу — режиссёр монтажа, портфолио" />
+    <meta name="twitter:image" content="https://tbpxjournal.online/superderi/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Дэрья Суджу — режиссёр монтажа" />
+    <meta
+      name="twitter:description"
+      content="Режиссёр монтажа и видеоредактор: подкасты, реклама, клипы и короткие форматы — от идеи до финального ролика."
+    />
+    <meta name="theme-color" content="#eaeaea" />
+    <link rel="icon" href="./favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body class="page">
+    <nav class="site-nav" id="siteNav" aria-label="Основная навигация">
+      <a class="site-nav__brand" href="#top">
+        ДЭРЬЯ&nbsp;СУДЖУ
+        <small>РЕЖИССЁР МОНТАЖА</small>
+      </a>
+      <ul class="site-nav__links">
+        <li><a class="site-nav__link" href="#about">{Обо мне}</a></li>
+        <li>
+          <a class="site-nav__link" href="#podcasts">{Подкасты}</a>
+        </li>
+        <li><a class="site-nav__link" href="#reels">{Рилсы}</a></li>
+        <!-- <li>
+          <a class="site-nav__link" href="#commercial">{Сценарные видео}</a>
+        </li> -->
+        <li>
+          <a class="site-nav__link" href="#clips">{ИИ Генерации}</a>
+        </li>
+      </ul>
+      <a class="site-nav__cta" href="https://t.me/" rel="noopener noreferrer">Связаться</a>
+      <button
+        class="site-nav__burger"
+        type="button"
+        aria-label="Открыть меню"
+        aria-controls="siteNavMobile"
+        aria-expanded="false"
+      >
+        <span></span>
+      </button>
+      <div class="site-nav__mobile" id="siteNavMobile" role="menu">
+        <a href="#about">{Обо мне}</a>
+        <a href="#podcasts">{Подкасты}</a>
+        <a href="#reels">{Рилсы}</a>
+        <!-- <a href="#commercial">{Сценарные видео}</a> -->
+        <a href="#clips">{ИИ Генерации}</a>
+        <a class="site-nav__cta" href="https://t.me/" rel="noopener noreferrer">Связаться</a>
+      </div>
+    </nav>
+
+    <div class="page__inner" id="top">
+      <header class="hero">
+        <h1 class="hero__title">
+          <span>ДЭРЬЯ</span><span>СУДЖУ</span><span>РЕЖИССЁР</span><span>МОНТАЖА</span>
+        </h1>
+      </header>
+
+      <section class="about" id="about" aria-labelledby="about-heading">
+        <h2 id="about-heading" class="visually-hidden">Обо мне</h2>
+        <p class="about__label">{Обо мне}</p>
+        <div class="about__body">
+          <p class="about__text">
+            Специализируюсь на профессиональном монтаже в DaVinci Resolve. Опыт работы в рекламном
+            агентстве и на фрилансе. Владею навыками мультикамерного монтажа подкастов, создания
+            динамичных роликов для соцсетей и интеграции AI‑инструментов в рабочий процесс.
+          </p>
+        </div>
+      </section>
+
+      <!-- Carousel pattern: every video section uses the same focal-scale + arrow nav layout. -->
+      <section
+        class="carousel carousel--horizontal"
+        data-carousel
+        data-poster-at="300"
+        aria-labelledby="podcasts-heading"
+      >
+        <div class="carousel__head" id="podcasts">
+          <h2 id="podcasts-heading" class="carousel__label">{Подкасты}</h2>
+          <div class="carousel__nav">
+            <button class="carousel__btn" data-prev type="button" aria-label="Предыдущее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button class="carousel__btn" data-next type="button" aria-label="Следующее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="carousel__viewport">
+          <div class="carousel__track">
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/podcast-1.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/podcast-2.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <!-- <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/podcast-3.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/podcast-4.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div> -->
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/podcast-5.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <!-- <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/podcast-6.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div> -->
+          </div>
+        </div>
+        <div class="carousel__dots" aria-hidden="true"></div>
+      </section>
+
+      <section
+        class="carousel carousel--vertical"
+        data-carousel
+        aria-labelledby="reels-heading"
+      >
+        <div class="carousel__head" id="reels">
+          <h2 id="reels-heading" class="carousel__label">{Рилсы}</h2>
+          <div class="carousel__nav">
+            <button class="carousel__btn" data-prev type="button" aria-label="Предыдущее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button class="carousel__btn" data-next type="button" aria-label="Следующее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="carousel__viewport">
+          <div class="carousel__track">
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-1.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-2.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-3.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-4.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-5.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-6.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-7.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-8.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-9.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-10.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-11.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-12.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-13.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-14.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-15.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-16.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-17.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-18.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-19.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-20.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-21.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-22.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-23.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-24.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-25.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-26.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-27.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-28.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-29.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/reel-30.webm"
+                playsinline
+                preload="none"
+                loop
+              ></video>
+            </div>
+          </div>
+        </div>
+        <div class="carousel__dots" aria-hidden="true"></div>
+      </section>
+
+      <!-- <section
+        class="carousel carousel--horizontal"
+        id="commercial"
+        data-carousel
+        aria-labelledby="commercial-heading"
+      >
+        <div class="carousel__head">
+          <h2 id="commercial-heading" class="carousel__label">{Сценарные видео}</h2>
+          <div class="carousel__nav">
+            <button class="carousel__btn" data-prev type="button" aria-label="Предыдущее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button class="carousel__btn" data-next type="button" aria-label="Следующее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="carousel__viewport">
+          <div class="carousel__track">
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/hor2.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/hor.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/hor2.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+          </div>
+        </div>
+        <div class="carousel__dots" aria-hidden="true"></div>
+      </section> -->
+
+      <!-- <section
+        class="carousel carousel--horizontal"
+        id="clips"
+        data-carousel
+        aria-labelledby="clips-heading"
+      >
+        <div class="carousel__head">
+          <h2 id="clips-heading" class="carousel__label">{ИИ Генерации}</h2>
+          <div class="carousel__nav">
+            <button class="carousel__btn" data-prev type="button" aria-label="Предыдущее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button class="carousel__btn" data-next type="button" aria-label="Следующее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="carousel__viewport">
+          <div class="carousel__track">
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/hor.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/hor2.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/hor.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+          </div>
+        </div>
+        <div class="carousel__dots" aria-hidden="true"></div>
+      </section> -->
+
+      <section
+        class="carousel carousel--vertical"
+        data-carousel
+        aria-label="ИИ Генерации — вертикальные"
+      >
+        <div class="carousel__head" id="clips">
+          <h2 id="clips-heading" class="carousel__label">{ИИ Генерации}</h2>
+          <div class="carousel__nav">
+            <button class="carousel__btn" data-prev type="button" aria-label="Предыдущее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button class="carousel__btn" data-next type="button" aria-label="Следующее видео">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="carousel__viewport">
+          <div class="carousel__track">
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-1.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-2.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-3.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-4.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-5.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-6.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-7.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-8.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+            <div class="carousel__slide">
+              <video
+                class="js-plyr"
+                data-src="./videos/ai-9.webm"
+                loop
+                playsinline
+                preload="none"
+              ></video>
+            </div>
+          </div>
+        </div>
+        <div class="carousel__dots" aria-hidden="true"></div>
+      </section>
+
+      <footer class="page-footer">
+        <a class="page-footer__link" href="https://t.me/" rel="noopener noreferrer">Telegram</a>
+      </footer>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
