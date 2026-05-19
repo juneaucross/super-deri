@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_SITE_URL: https://juneaucross.github.io/super-deri
+          VITE_SITE_URL: https://deriedit.pro
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
